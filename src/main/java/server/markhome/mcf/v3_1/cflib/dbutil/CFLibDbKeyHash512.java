@@ -132,11 +132,11 @@ public class CFLibDbKeyHash512 extends CFLibDbKeyHashBase<CFLibDbKeyHash512> imp
     return h;
   }
 
-  public static Comparator<CFLibDbKeyHash512> getComparator() {
+  public static Comparator<ICFLibKeyHash512> getComparator() {
 
-    return new Comparator<CFLibDbKeyHash512>() {
+    return new Comparator<ICFLibKeyHash512>() {
       @Override
-      public int compare(CFLibDbKeyHash512 a, CFLibDbKeyHash512 b) {
+      public int compare(ICFLibKeyHash512 a, ICFLibKeyHash512 b) {
         return compareOrdered(a, b);
       }
     };
@@ -157,8 +157,11 @@ public class CFLibDbKeyHash512 extends CFLibDbKeyHashBase<CFLibDbKeyHash512> imp
     super(anId);
   }
 
-  public CFLibDbKeyHash512(CFLibDbKeyHash512 otherKey) {
-    super(otherKey);
+  public CFLibDbKeyHash512(ICFLibKeyHash512 otherKey) {
+	bytes = new byte[HASH_LENGTH];
+	if(otherKey != null) {
+		System.arraycopy(otherKey.getBytes(), 0, bytes, 0, HASH_LENGTH);
+	}
   }
 
   public static CFLibDbKeyHash512 fromInt(int v) {
@@ -187,8 +190,7 @@ public class CFLibDbKeyHash512 extends CFLibDbKeyHashBase<CFLibDbKeyHash512> imp
    * Get a new hash object with the key set to all 0s
    */
   static public CFLibDbKeyHash512 nullGet() {
-    CFLibDbKeyHash512 k = new CFLibDbKeyHash512();
-    k.bytes = new byte[HASH_LENGTH];
+    CFLibDbKeyHash512 k = new CFLibDbKeyHash512(new byte[HASH_LENGTH]);
     return k;
   }
 
@@ -219,7 +221,7 @@ public class CFLibDbKeyHash512 extends CFLibDbKeyHashBase<CFLibDbKeyHash512> imp
       System.arraycopy(newBytes, offset, bytes, 0, Math.min(HASH_LENGTH,length));
   }
 
-  static public int compareOrdered(CFLibDbKeyHash512 h1, CFLibDbKeyHash512 h2) {
+  static public int compareOrdered(ICFLibKeyHash512 h1, ICFLibKeyHash512 h2) {
     if (h1 == null) {
       if (h2 == null) {
         return 0;
@@ -234,8 +236,8 @@ public class CFLibDbKeyHash512 extends CFLibDbKeyHashBase<CFLibDbKeyHash512> imp
       }
       else {
         for (int i = 0; i < HASH_LENGTH; i++) {
-          int v1 = h1.bytes[i] + 256;
-          int v2 = h2.bytes[i] + 256;
+          int v1 = h1.getBytes()[i] + 256;
+          int v2 = h2.getBytes()[i] + 256;
           if (v1 < v2) return -1;
           if (v1 > v2) return 1;
         }
@@ -285,11 +287,11 @@ public class CFLibDbKeyHash512 extends CFLibDbKeyHashBase<CFLibDbKeyHash512> imp
     return new CFLibDbKeyHash512(0);
   }
 
-  public static CFLibDbKeyHash512 hash(CFLibDbKeyHash512... payload) {
+  public static CFLibDbKeyHash512 hash(ICFLibKeyHash512... payload) {
     try {
       MessageDigest md = MessageDigest.getInstance(HASH_ALGO);
-      for (CFLibDbKeyHash512 k : payload) {
-        md.update(k.bytes);
+      for (ICFLibKeyHash512 k : payload) {
+        md.update(k.getBytes());
       }
       return new CFLibDbKeyHash512(md.digest());
     }

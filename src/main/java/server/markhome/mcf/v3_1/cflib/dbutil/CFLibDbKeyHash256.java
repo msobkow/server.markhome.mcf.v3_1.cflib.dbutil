@@ -133,11 +133,11 @@ public class CFLibDbKeyHash256 extends CFLibDbKeyHashBase<CFLibDbKeyHash256> imp
     return h;
   }
 
-  public static Comparator<CFLibDbKeyHash256> getComparator() {
+  public static Comparator<ICFLibKeyHash256> getComparator() {
 
-    return new Comparator<CFLibDbKeyHash256>() {
+    return new Comparator<ICFLibKeyHash256>() {
       @Override
-      public int compare(CFLibDbKeyHash256 a, CFLibDbKeyHash256 b) {
+      public int compare(ICFLibKeyHash256 a, ICFLibKeyHash256 b) {
         return compareOrdered(a, b);
       }
     };
@@ -158,11 +158,14 @@ public class CFLibDbKeyHash256 extends CFLibDbKeyHashBase<CFLibDbKeyHash256> imp
     super(anId);
   }
 
-  public CFLibDbKeyHash256(CFLibDbKeyHash256 otherKey) {
-    super(otherKey);
+  public CFLibDbKeyHash256(ICFLibKeyHash256 otherKey) {
+	bytes = new byte[HASH_LENGTH];
+	if(otherKey != null) {
+		System.arraycopy(otherKey.getBytes(), 0, bytes, 0, HASH_LENGTH);
+	}
   }
 
-  public CFLibDbKeyHash256(CFLibDbKeyHash384 otherKey) {
+  public CFLibDbKeyHash256(ICFLibKeyHash384 otherKey) {
     super();
     if (otherKey == null) {
       bytes = new byte[HASH_LENGTH];
@@ -173,7 +176,7 @@ public class CFLibDbKeyHash256 extends CFLibDbKeyHashBase<CFLibDbKeyHash256> imp
     this.bytes = _newId;
   }
 
-  public CFLibDbKeyHash256(CFLibDbKeyHash512 otherKey) {
+  public CFLibDbKeyHash256(ICFLibKeyHash512 otherKey) {
     super();
     if (otherKey == null) {
       bytes = new byte[HASH_LENGTH];
@@ -210,8 +213,7 @@ public class CFLibDbKeyHash256 extends CFLibDbKeyHashBase<CFLibDbKeyHash256> imp
    * Get a new hash object with the key set to all 0s
    */
   static public CFLibDbKeyHash256 nullGet() {
-    CFLibDbKeyHash256 k = new CFLibDbKeyHash256();
-    k.bytes = new byte[HASH_LENGTH];
+    CFLibDbKeyHash256 k = new CFLibDbKeyHash256(new byte[HASH_LENGTH]);
     return k;
   }
 
@@ -242,7 +244,7 @@ public class CFLibDbKeyHash256 extends CFLibDbKeyHashBase<CFLibDbKeyHash256> imp
       System.arraycopy(newBytes, offset, bytes, 0, Math.min(HASH_LENGTH,length));
   }
 
-  static public int compareOrdered(CFLibDbKeyHash256 h1, CFLibDbKeyHash256 h2) {
+  static public int compareOrdered(ICFLibKeyHash256 h1, ICFLibKeyHash256 h2) {
     if (h1 == null) {
       if (h2 == null) {
         return 0;
@@ -257,8 +259,8 @@ public class CFLibDbKeyHash256 extends CFLibDbKeyHashBase<CFLibDbKeyHash256> imp
       }
       else {
         for (int i = 0; i < HASH_LENGTH; i++) {
-          int v1 = h1.bytes[i] + 256;
-          int v2 = h2.bytes[i] + 256;
+          int v1 = h1.getBytes()[i] + 256;
+          int v2 = h2.getBytes()[i] + 256;
           if (v1 < v2) return -1;
           if (v1 > v2) return 1;
         }
@@ -308,11 +310,11 @@ public class CFLibDbKeyHash256 extends CFLibDbKeyHashBase<CFLibDbKeyHash256> imp
     return new CFLibDbKeyHash256(0);
   }
 
-  public static CFLibDbKeyHash256 hash(CFLibDbKeyHash256... payload) {
+  public static CFLibDbKeyHash256 hash(ICFLibKeyHash256... payload) {
     try {
       MessageDigest md = MessageDigest.getInstance(HASH_ALGO);
-      for (CFLibDbKeyHash256 k : payload) {
-        md.update(k.bytes);
+      for (ICFLibKeyHash256 k : payload) {
+        md.update(k.getBytes());
       }
       return new CFLibDbKeyHash256(md.digest());
     }
