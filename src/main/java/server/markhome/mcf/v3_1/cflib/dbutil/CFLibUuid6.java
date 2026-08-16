@@ -118,7 +118,7 @@ public class CFLibUuid6 implements java.io.Serializable, Comparable<CFLibUuid6> 
      * Explicit serialVersionUID for interoperability.
      */
     @java.io.Serial
-    private static final long serialVersionUID = 202504190939L;
+  	static final long serialVersionUID = 202608160558L;
 
     // @Convert(converter = CFLibUuid6Converter.class)
     @Column(name = "bytes", nullable = false)

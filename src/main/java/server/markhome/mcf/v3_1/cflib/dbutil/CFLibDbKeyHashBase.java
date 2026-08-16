@@ -45,6 +45,9 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import server.markhome.mcf.v3_1.cflib.*;
+import server.markhome.mcf.v3_1.cflib.keyhash.*;
+
 /**
  * Base class for CFLib database key hashes.
  *

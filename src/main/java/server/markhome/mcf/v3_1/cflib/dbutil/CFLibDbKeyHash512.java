@@ -53,17 +53,16 @@ import java.util.Set;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+import server.markhome.mcf.v3_1.cflib.*;
+import server.markhome.mcf.v3_1.cflib.keyhash.*;
+
 /**
  *
  * @author msobkow
  */
 @Embeddable
-public class CFLibDbKeyHash512 extends CFLibDbKeyHashBase<CFLibDbKeyHash512> implements Serializable {
-
-  static final long serialVersionUID = 202505130953L;
-  static final public  int HASH_LENGTH = 64; // hash size in bytes
-  static final public int HASH_LENGTH_STRING = HASH_LENGTH * 2; // SHA-1 hash size as a string
-  static final String HASH_ALGO = "SHA-512";
+public class CFLibDbKeyHash512 extends CFLibDbKeyHashBase<CFLibDbKeyHash512> implements Serializable, ICFLibKeyHash512  {
+  static final long serialVersionUID = 202608160557L;
 
   @Override
   public int getHashLength() {

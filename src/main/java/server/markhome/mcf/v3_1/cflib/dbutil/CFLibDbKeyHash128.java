@@ -53,17 +53,16 @@ import java.util.Set;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+import server.markhome.mcf.v3_1.cflib.*;
+import server.markhome.mcf.v3_1.cflib.keyhash.*;
+
 /**
  *
  * @author msobkow
  */
 @Embeddable
-public class CFLibDbKeyHash128 extends CFLibDbKeyHashBase<CFLibDbKeyHash128> implements Serializable {
-
-  static final long serialVersionUID = 202505131740L;
-  static final public  int HASH_LENGTH = 16; // md5 hash size
-  static final public int HASH_LENGTH_STRING = HASH_LENGTH * 2; // md5 hash size as a string
-  static final String HASH_ALGO = "MD5";
+public class CFLibDbKeyHash128 extends CFLibDbKeyHashBase<CFLibDbKeyHash128> implements Serializable, ICFLibKeyHash128  {
+  static final long serialVersionUID = 202608160552L;
 
   @Override
   public int getHashLength() {
