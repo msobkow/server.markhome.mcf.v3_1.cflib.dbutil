@@ -133,6 +133,13 @@ public class CFLibDbKeyHash256 extends CFLibDbKeyHashBase<CFLibDbKeyHash256> imp
     return h;
   }
 
+  @Override
+  @SuppressWarnings("unchecked")
+  public int compareTo(ICFLibKeyHash256 o) {
+    int result = compare((ICFLibKeyHash256) this, o);
+    return result;
+  }
+
   public static Comparator<ICFLibKeyHash256> getComparator() {
 
     return new Comparator<ICFLibKeyHash256>() {

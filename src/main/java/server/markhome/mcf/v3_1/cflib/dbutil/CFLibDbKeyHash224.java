@@ -132,6 +132,13 @@ public class CFLibDbKeyHash224 extends CFLibDbKeyHashBase<CFLibDbKeyHash224> imp
     return h;
   }
 
+  @Override
+  @SuppressWarnings("unchecked")
+  public int compareTo(ICFLibKeyHash224 o) {
+    int result = compare((ICFLibKeyHash224) this, o);
+    return result;
+  }
+
   public static Comparator<ICFLibKeyHash224> getComparator() {
 
     return new Comparator<ICFLibKeyHash224>() {
