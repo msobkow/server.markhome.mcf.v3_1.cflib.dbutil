@@ -39,21 +39,23 @@
  *	for a commercial license at mark.sobkow@gmail.com
  */
 
-import server.markhome.mcf.v3_1.cflib.dbutil.CFLibUuid6;
+import server.markhome.mcf.v3_1.cflib.dbutil.CFLibDbUuid6;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
+import server.markhome.mcf.v3_1.cflib.keyhash.*;
+
 @Converter(autoApply = true)
-public class CFLibUuid6Converter implements AttributeConverter<CFLibUuid6, byte[]> {
+public class CFLibDbUuid6Converter implements AttributeConverter<CFLibDbUuid6, byte[]> {
     
     @Override
-    public byte[] convertToDatabaseColumn(CFLibUuid6 attribute) {
+    public byte[] convertToDatabaseColumn(CFLibDbUuid6 attribute) {
         return attribute != null ? attribute.getBytes() : null;
     }
 
     @Override
-    public CFLibUuid6 convertToEntityAttribute(byte[] dbData) {
-        return dbData != null ? new CFLibUuid6(dbData) : null;
+    public CFLibDbUuid6 convertToEntityAttribute(byte[] dbData) {
+        return dbData != null ? new CFLibDbUuid6(dbData) : null;
     }
 }
