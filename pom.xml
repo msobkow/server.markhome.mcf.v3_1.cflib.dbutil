@@ -4,14 +4,14 @@
   <parent>
     <groupId>server.markhome.mcf</groupId>
     <artifactId>server.markhome.mcf.v3_1</artifactId>
-    <version>3.1.42</version>
+    <version>3.1.${env.buildString}-${env.BUILD_STAMP}</version>
   </parent>
 
   <groupId>server.markhome.mcf.v3_1</groupId>
   <artifactId>server.markhome.mcf.v3_1.cflib.dbutil</artifactId>
-  <version>3.1.42</version>
+  <version>3.1.${env.buildString}-${env.BUILD_STAMP}</version>
   <name>server.markhome.mcf.v3_1.cflib.dbutil</name>
-  <description>MSS Code Factory 3.1.42 CFLib DbUtil - Database Utilities and Types</description>
+  <description>MSS Code Factory 3.1.${env.buildString}-${env.BUILD_STAMP} CFLib DbUtil - Database Utilities and Types</description>
   <url>email:mark.sobkow@gmail.com</url>
 
   <properties>
@@ -27,7 +27,7 @@
 	<jakarta-annotation-api.version>3.0.0</jakarta-annotation-api.version>
 	<jakarta-persistence-api.version>3.2.0</jakarta-persistence-api.version>
 	<spring.version>4.0.5</spring.version>
-    <mcf.version>3.1.42</mcf.version>
+    <mcf.version>3.1.${env.buildString}-${env.BUILD_STAMP}</mcf.version>
   </properties>
 
   <dependencies>
